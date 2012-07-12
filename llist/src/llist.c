@@ -1,5 +1,4 @@
 #include "../includes/llist.h"
-#include "llist_support.c"
 
 node_t *list_create(void *data)
 {

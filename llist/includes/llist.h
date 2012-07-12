@@ -1,23 +1,19 @@
 #ifndef LLIST_H
   #define LLIST_H
+	#include <stdlib.h>
+	#include <stdio.h>
+	#include <string.h>
 
-	typedef struct    hashnode_s 
-	{
-	  struct  data_s	 *data;
-	  struct  hashnode_s *next;
+	typedef struct node_s {
+		void *data;
+		struct node_s *next;	
 	} node_t;
 
-	typedef struct    data_s 
-	{
-	  char    *key;
-	  void    *value;
-	} data_t;
-
-  node_t 			*node_init(const char *key, void *data);
-	int   			llist_set(node_t *llist, const char *key, void *value);
-	int   			llist_remove(const char *key);
-	void  			*llist_get(const char *key);
-	void				llist_destroy();
-	static int 	def_return_hash(const char *str);
+  node_t 	*list_create(void *data);
+  node_t 	*list_insert(node_t *list, void *data);
+  node_t  *list_insert_after(node_t *node, void *data);
+  node_t 	*list_find(node_t *node, int (*func)(void *,void *), void *data);
+  int 		list_remove(node_t *list, node_t *node);
+  int 		list_foreach(node_t *node, int(*func)(void*));
 
 #endif

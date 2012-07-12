@@ -1,29 +1,58 @@
 #include "../includes/llist.h"
 #include "llist_support.c"
-#include <stdlib.h>
-#include <string.h>
 
-int   llist_set(node_t *llist, const char *key, void *value)
+node_t *list_create(void *data)
 {
-  node_t 	*node;
+  node_t *node;
 
-  node = llist;
-  while (node)
-  {
-    if (!strcmp(node->data->key, key))
-    {
-      node->data->value = value;
-      return 0;
-    }
-    node = node->next;
+  if(!(node=malloc(sizeof(node_t)))) return NULL;
+  node->data=data;
+  node->next=NULL;
+  return node;
+}
+
+node_t *list_insert(node_t *list, void *data)
+{
+  node_t  *newnode;
+
+  newnode=list_create(data);
+  newnode->next = list;
+  return newnode;
+}
+
+node_t *list_insert_after(node_t *node, void *data)
+{
+  node_t *newnode;
+        newnode=list_create(data);
+        newnode->next = node->next;
+        node->next = newnode;
+  return newnode;
+}
+
+node_t *list_find(node_t *node, int(*func)(void*,void*), void *data)
+{
+  while(node) {
+    if(func(node->data, data)>0) return node;
+    node=node->next;
   }
+  return NULL;
+}
 
-  node = node_init(key, value);  
-  printf(">>node:\n  key:%s\n  value:%s\n", node->data->key, node->data->value);
-  node->next = llist;
-  printf(">>node_next:\n  key:%s\n  value:%s\n", node->next->data->key, node->next->data->value);
-  *llist = *node;
-  printf(">>llist:\n  key:%s\n  value:%s\n", llist->data->key, llist->data->value);
-  
+int list_remove(node_t *list, node_t *node)
+{
+  while(list->next && list->next!=node) list=list->next;
+  if(list->next) {
+    list->next=node->next;
+    free(node);
+    return 0;   
+  } else return -1;
+}
+
+int list_foreach(node_t *node, int(*func)(void*))
+{
+  while(node) {
+    if(func(node->data)!=0) return -1;
+    node=node->next;
+  }
   return 0;
 }

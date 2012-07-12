@@ -6,6 +6,7 @@ void main()
 
 	list = node_init("first", "first_value");
 	printf("%s\n", list->data->value);
-  list = llist_set(list, "second", "second_value");
+  llist_set(list, "second", "second_value");
 	printf("%s\n", list->data->value);
+	printf("%s\n", list->next->data->value);
 }

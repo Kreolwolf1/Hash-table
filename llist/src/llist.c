@@ -21,7 +21,8 @@ int   llist_set(node_t *llist, const char *key, void *value)
   node = node_init(key, value);  
   printf(">>node:\n  key:%s\n  value:%s\n", node->data->key, node->data->value);
   node->next = llist;
-  llist = node;
+  printf(">>node_next:\n  key:%s\n  value:%s\n", node->next->data->key, node->next->data->value);
+  *llist = *node;
   printf(">>llist:\n  key:%s\n  value:%s\n", llist->data->key, llist->data->value);
   
   return 0;

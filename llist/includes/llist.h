@@ -1,8 +1,8 @@
 #ifndef LLIST_H
-  #define LLIST_H
-	#include <stdlib.h>
-	#include <stdio.h>
-	#include <string.h>
+# define LLIST_H
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
 
 	typedef struct node_s {
 		void *data;

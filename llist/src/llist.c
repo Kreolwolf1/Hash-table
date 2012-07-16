@@ -70,6 +70,7 @@ int list_remove(node_t *list, node_t *node)
   }
 }
 
+
 int list_destroy(node_t *list)
 {
   node_t  *node;

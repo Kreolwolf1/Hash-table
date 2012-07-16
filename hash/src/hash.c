@@ -6,9 +6,14 @@ hash_t	*hash_init(int size)
 	hash_t *hash;
 	node_t *nodes_parr[size];
 
-	printf("%d\n",  size);
 	if(!(hash = malloc(sizeof(hash_t)))) 
 		return NULL;
+
+	if(!(hash->nodes=calloc(size, sizeof(struct node_s*)))) {
+		free(hash);
+		return NULL;
+	}
+
 	hash->size = size;
 	hash->nodes = nodes_parr;
 
@@ -42,7 +47,7 @@ int		hash_set(hash_t *hash, char *key, void *value)
 
 	return 0;
 }
-/*
+
 void	*hash_get(hash_t *hash, char *key)
 {
 	int 		hash_key; 
@@ -77,6 +82,6 @@ int		hash_remove(hash_t *hash, char *key)
 	else
 		return -1;
 }
-*/
+
 
 

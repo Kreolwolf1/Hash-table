@@ -10,8 +10,8 @@ int main()
 	
 	hash_set(hashtabl, "test", "value1");
 
-//	hash_set(hashtabl, "test", "value12");
-//	hash_set(hashtabl, "test2", "value12");
+	hash_set(hashtabl, "test", "value12");
+	hash_set(hashtabl, "test2", "value12");
 //	hash_set(hashtabl, "test3", "value12");
 //	hash_set(hashtabl, "test4", "value12");
 

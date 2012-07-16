@@ -4,8 +4,21 @@
   
 int main()
 {
-  node_t *list, *second, *inserted;
+  node_t *list, *second, *list_test, *inserted;
   node_t *match;
+
+  list_test = list_create((void*)"Test");
+  printf("Before list_remove():\n");
+  list_foreach(list_test, printstring);
+
+  inserted = list_find(list_test, findstring, "Test");
+  printf("After list_remove():\n");
+  if (!list_remove(list_test, list_test))
+    printf(" >> Head of list has been removed\n");
+  else
+    list_foreach(list_test, printstring);
+  putchar('\n');
+
 
   /* Create initial elements of list */
   list = list_create((void*)"First");
@@ -33,6 +46,11 @@ int main()
   printf("After list_remove():\n");
   list_foreach(list, printstring);
   putchar('\n');
+
+  /* List destroy */
+  list_destroy(list);
+  printf("After list_destroy():\n");
+  list_foreach(list, printstring);
 
   /* Search */
   if((match = list_find(list, findstring, "Third")))

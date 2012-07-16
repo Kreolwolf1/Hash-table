@@ -42,15 +42,32 @@ node_t *list_find(node_t *node, int(*func)(void*,void*), void *data)
 
 int list_remove(node_t *list, node_t *node)
 {
-  while (list->next && list->next!=node)
+
+  if ((list == node))
+  {
+    if (list->next == NULL)
+      free(node);
+    else
+      list->next = node->next;
+    return 0;
+  }
+  while (list->next && list->next != node)
     list=list->next;
-  if (list->next) {
+  if (list->next) 
+  {
     list->next=node->next;
     free(node);
     return 0;   
   } 
   else
+  {
+    if ((list == node))
+    {
+      free(node);
+      return 0;
+    }
     return -1;
+  }
 }
 
 
@@ -63,7 +80,7 @@ int list_destroy(node_t *list)
     list = list->next;
     free(node);
   }
-  
+
   return 0;
 }
 

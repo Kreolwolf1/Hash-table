@@ -53,10 +53,10 @@ int list_remove(node_t *list, node_t *node)
     return -1;
 }
 
-int list_foreach(node_t *node, int(*func)(void*))
+int list_foreach(node_t *node, int (*func)(void*))
 {
   while (node) {
-    if (func(node->data)! = 0)
+    if (func(node->data) != 0)
       return -1;
     node = node->next;
   }

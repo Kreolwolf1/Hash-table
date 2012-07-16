@@ -34,3 +34,8 @@ int find_hash_string(void *listdata, void *searchdata)
     
   return strcmp(hash_data->key, (char *)searchdata)?0:1;
 }
+
+int foreach_for_clean(void *data)
+{
+  
+}

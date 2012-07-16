@@ -1,5 +1,6 @@
 #include "hash.c"
 
+
 int main()
 {
 	hash_t 	*hashtabl;
@@ -8,11 +9,22 @@ int main()
 
 	hashtabl = hash_init(128);
 	
-//	hash_set(hashtabl, "test", "value1");
+	hash_set(hashtabl, "test", "value1");
+  hash_set(hashtabl, "test1", "value1qwe");
+	hash_set(hashtabl, "test", "value12");
+	value1 = hash_get(hashtabl, "test");
+  printf("%s\n", value1?value1:"...");
+  value1 = hash_get(hashtabl, "test1");
+  printf("%s\n", value1?value1:"...");
 
-//	hash_set(hashtabl, "test", "value12");
-//	hash_set(hashtabl, "test2", "value12");
-//	hash_set(hashtabl, "test3", "value12");
+  hash_remove(hashtabl,"testq");
+
+  value1 = hash_get(hashtabl, "test");
+  printf("%s\n", value1?value1:"...");
+  value1 = hash_get(hashtabl, "test1");
+  printf("%s\n", value1?value1:"...");
+
+
 //	hash_set(hashtabl, "test4", "value12");
 
 

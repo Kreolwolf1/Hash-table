@@ -51,7 +51,7 @@ void  *hash_get(hash_t *hash, char *key)
 
   hash_key = def_hash((char*)key, hash->size);
   node = hash->nodes[hash_key]; 
-  node = list_find(node, find_hash_string, key);
+  node = list_find(node, find_hash_string, key);  
   if (node)
   {
     return ((hashdata_t *)node->data)->value;
@@ -83,26 +83,6 @@ int   hash_remove(hash_t *hash, char *key)
     return -1;
 }
 
-int   hash_remove(hash_t *hash, char *key)
-{
-  int       hash_key; 
-  node_t    *list;
-  node_t    *buff_node;
-
-  hash_key = def_hash((char*)key, hash->size);
-  list = hash->nodes[hash_key]; 
-  buff_node = list_find(list, find_hash_string, key);
-  if (buff_node)
-  {
-    free(((hashdata_t *)buff_node->data)->key);
-    free((hashdata_t *)buff_node->data);
-    list_remove(list, buff_node);
-
-    return 0;
-  }
-  else
-    return -1;
-}
 
 int   hash_clean(hash_t *hash)
 {
@@ -112,7 +92,20 @@ int   hash_clean(hash_t *hash)
   {
     if (hash->nodes[i])
     {
-            
+      list_foreach(hash->nodes[i], foreach_for_clean);
+      list_destroy(hash->nodes[i]);
+      hash->nodes[i] = NULL;  
     } 
   }
+
+  return 0;
+}
+
+int   hash_destroy(hash_t *hash)
+{
+  hash_clean(hash);
+  free(hash->nodes);
+  free(hash);
+
+  return 0;   
 }

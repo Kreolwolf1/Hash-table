@@ -37,5 +37,7 @@ int find_hash_string(void *listdata, void *searchdata)
 
 int foreach_for_clean(void *data)
 {
-  
+  free( ((hashdata_t *)data)->key );
+  free( (hashdata_t *)data );
+  return 0;
 }

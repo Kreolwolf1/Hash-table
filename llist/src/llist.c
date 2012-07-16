@@ -53,7 +53,21 @@ int list_remove(node_t *list, node_t *node)
     return -1;
 }
 
-int list_foreach(node_t *node, int (*func)(void*))
+
+int list_destroy(node_t *list)
+{
+  node_t  *node;
+
+  while (list) {
+    node = list;
+    list = list->next;
+    free(node);
+  }
+  
+  return 0;
+}
+
+int list_foreach(node_t *node, int(*func)(void*))
 {
   while (node) {
     if (func(node->data) != 0)

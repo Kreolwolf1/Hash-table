@@ -21,6 +21,7 @@ int		hash_set(hash_t *hash, char *key, void *data);
 int		hash_remove(hash_t *hash, char *key);
 int		hash_destroy(hash_t *hash);
 int		hash_clean(hash_t *hash);
-int   find_hash_string(void *listdata, void *searchdata); 
+int   find_hash_string(void *listdata, void *searchdata);
+int   hash_clean(hash_t *hash); 
 
 #endif

@@ -71,7 +71,7 @@ int   test_action_remove()
   hashtabl = hash_init(128);
   hash_set(hashtabl, "test", "value");
   hash_remove(hashtabl, "test");
-  value   = hash_get(hashtabl, "test");
+  value = hash_get(hashtabl, "test");
  
   if (!value)
   {

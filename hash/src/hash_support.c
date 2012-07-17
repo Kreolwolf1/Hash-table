@@ -31,7 +31,6 @@ int find_hash_string(void *listdata, void *searchdata)
   hashdata_t  *hash_data;
 
   hash_data = (hashdata_t *)listdata;
-    
   return strcmp(hash_data->key, (char *)searchdata)?0:1;
 }
 

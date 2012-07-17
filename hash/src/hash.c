@@ -32,7 +32,7 @@ int   hash_set(hash_t *hash, char *key, void *value)
       ((hashdata_t *)buff_node->data)->value = value;
       return 0;
     }
-    buff_node = list_insert(node, mystrdup(value, key));
+    buff_node = list_insert(node, mystrdup(value, key), find_hash_string);
     buff_node->next = hash->nodes[hash_key];
   } 
   else
@@ -75,7 +75,7 @@ int   hash_remove(hash_t *hash, char *key)
   {
     free(((hashdata_t *)buff_node->data)->key);
     free((hashdata_t *)buff_node->data);
-    list_remove(list, buff_node);
+    list_remove(list, buff_node, find_hash_string);
 
     return 0;
   }

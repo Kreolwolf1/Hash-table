@@ -13,7 +13,7 @@ int main()
 
   value = list_find(btree, def_btree_search_func, "7");
 
-  printf("-->%s\n", (char *)value->data);
+  //printf("-->%s\n", (char *)value->data);
 
 
   list_insert(btree, "16", def_btree_search_func); 
@@ -29,20 +29,21 @@ int main()
   
   
   list_remove(btree, value, def_btree_search_func);
-
+  list_destroy(btree);
   
   value = list_find(btree, def_btree_search_func, "11");
-  printf("-->%s\n", (char *)value->data);
+  printf("-->%s\n", (char *)value);
   value = list_find(btree, def_btree_search_func, "16");
-  printf("-->%s\n", (char *)value->data);
+  printf("-->%s\n", (char *)value);
   value = list_find(btree, def_btree_search_func, "19");
-  printf("-->%s\n", (char *)value->data);
+  printf("-->%s\n", (char *)value);
   value = list_find(btree, def_btree_search_func, "13");
-  printf("-->%s\n", (char *)value->data);
+  printf("-->%s\n", (char *)value);
   value = list_find(btree, def_btree_search_func, "12");
   printf("-->%s\n", (char *)value);
   value = list_find(btree, def_btree_search_func, "14");
-  printf("-->%s\n", (char *)value->data);
+  printf("-->%s\n", (char *)value);
+
 
   return 0;
 }

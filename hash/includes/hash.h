@@ -1,6 +1,7 @@
 #ifndef HASH
 # define HASH
-# include "./../../llist/src/llist.c"
+//# include "./../../llist/src/llist.c"
+# include "./../../btree/src/btree.c"
 
 typedef struct hash_s {
 	int      size;

@@ -1,7 +1,7 @@
 #include "../includes/btree.h"
 #include "../src/btree_support.c"
 
-node_t  *list_create(void *data)
+node_t      *list_create(void *data)
 {
   node_t *node;
 
@@ -13,20 +13,22 @@ node_t  *list_create(void *data)
   return node;
 }
 
-node_t *list_insert(node_t *node, void *data, int(*func)(void*,void*))
+node_t    *list_insert(node_t *node, void *data, int(*func)(void*,void*), void *key)
 {
   node_t  *new_node;
   node_t  *previos;
+  node_t  *root;
   int compare_result;
 
+  root = node;
   new_node = list_create(data);
-  while(node) {
-    previos = node;
-    compare_result = func(node->data, data);     
+  while(root) {
+    previos = root;
+    compare_result = func(root->data, key);     
     if (compare_result < 0)
-      node = node->left;
+      root = root->left;
     else if (compare_result > 0)
-      node = node->right;
+      root = root->right;
     else
       break; 
   }
@@ -38,14 +40,14 @@ node_t *list_insert(node_t *node, void *data, int(*func)(void*,void*))
     else
       previos->left = new_node; 
   
-  return new_node;
+  return node;
 } 
 
 
-node_t *list_find(node_t *node, int(*func)(void*,void*), void *data)
+node_t    *list_find(node_t *node, int(*func)(void*,void*), void *data)
 {
   int compare_result;
-
+  
   while(node) {
     compare_result = func(node->data, data);     
     if (compare_result < 0)
@@ -60,43 +62,61 @@ node_t *list_find(node_t *node, int(*func)(void*,void*), void *data)
   return NULL;
 }
 
-int list_remove(node_t *list, node_t *node, int(*func)(void*,void*))
+int     list_remove(node_t *list, node_t *node, int(*func)(void*,void*), void *key)
 {
   node_t *parent;
   node_t **buff;
   node_t *last_left;
-
-  parent = list_search(list, node->data, func);
+  
+  if (list == node)
+  {
+    if (remove_root(list) == 0)
+      return 0;
+    else
+      return -1;  
+  }
+  parent = list_search(list, key, func);
   if (parent->left == node) 
   {
-    buff = &parent->left;
+    buff = &parent->left; 
   }
-  else
+  else 
   {
     buff = &parent->right;
   }
-  if ((node->left == NULL) && (node->right == NULL))
-  {
-    *buff = NULL;
-    free(node);
-  }
-  else if (node->left == NULL)  
-  {
-      *buff = node->right;     
-      free(node);
-  }
-  else if (node->right == NULL)  
-  {
-      *buff = node->left;     
-      free(node);
-  }
-  else
-  {
-      *buff = node->right;
-      last_left = list_left_search(node->right);
-      last_left->left = node->left;
-      free(node);
-  }
+  
+  remove_not_root(node, buff);
   
   return 0;
+}
+
+int     list_destroy(node_t *root)
+{
+  if (root==NULL) 
+    return;             
+
+  list_destroy(root->left);       
+  list_destroy(root->right);      
+  free(root);
+}
+
+int     list_foreach(node_t *root, int(*func)(void*)) 
+{
+  if (root == NULL) 
+    return 0;             
+  if (func(root->data) != 0)
+    return -1;
+  list_foreach(root->left, func);        
+  list_foreach(root->right, func);      
+}
+
+int     list_foreach_test(node_t *root, node_t *parent, char  *text) 
+{
+  if (root == NULL) 
+    return 0;             
+  
+  printf("-->%s     parent->%s    -->%s\n", (char *)root->data, (char *)parent->data, text);
+  parent = root;
+  list_foreach_test(root->left, parent, "L");       
+  list_foreach_test(root->right, parent, "R");      
 }

@@ -33,7 +33,7 @@ node_t *list_insert_after(node_t *node, void *data)
 node_t *list_find(node_t *node, int(*func)(void*,void*), void *data)
 {
   while(node) {
-    if (func(node->data, data)>0)
+    if (func(node->data, data)==0)
       return node;
     node=node->next;
   }

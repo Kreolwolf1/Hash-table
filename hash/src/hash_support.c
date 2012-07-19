@@ -14,7 +14,7 @@ static hashdata_t   *mystrdup(void *value, const char *s)
   return data;
 }
 
-static int   def_hash(const char *str, int size)  // hash-function                                                                                                                                                                                                               
+static int   def_hash(const char *str, int size)                                                                                                                                                                                                                 
 {                                                                                                                                                                                                                                                                      
   unsigned int    i;                                                                                                                                                                                                                                                    
   unsigned int    hash = 0;                                                                                                                                                                                                                                             
@@ -27,11 +27,11 @@ static int   def_hash(const char *str, int size)  // hash-function
 
 int find_hash_string(void *listdata, void *searchdata)
 {
-  char *      chtest;
   hashdata_t  *hash_data;
+  char        *searchvalue; 
 
   hash_data = (hashdata_t *)listdata;
-  return strcmp(hash_data->key, (char *)searchdata)?0:1;
+  return strcmp((char *)searchdata, hash_data->key);
 }
 
 int foreach_for_clean(void *data)
@@ -40,3 +40,4 @@ int foreach_for_clean(void *data)
   free( (hashdata_t *)data );
   return 0;
 }
+

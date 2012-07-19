@@ -67,12 +67,10 @@ int   test_action_remove()
 {
   hash_t  *hashtabl;
   void  *value;
-
   hashtabl = hash_init(128);
   hash_set(hashtabl, "test", "value");
   hash_remove(hashtabl, "test");
-  value = hash_get(hashtabl, "test");
- 
+  value = hash_get(hashtabl, "test"); 
   if (!value)
   {
     printf("\nTEST FOR remove ACTION successfilly completed\n");
@@ -117,7 +115,7 @@ int stress_set_get_test()
 {
   hash_t  *hashtabl;
   int     i;
-  int     cols = 100000;
+  int     cols = 10000;
   char    a[20];
   void    *value;
 
@@ -148,50 +146,53 @@ int stress_set_get_remove_test()
 {
   hash_t  *hashtabl;
   int     i;
-  int     cols = 100000;
+  int     cols = 5000;
   char    a[20];
   void    *value;
   int     fl;
 
-  hashtabl = hash_init(128);   
-  for(i=0; i < cols; ++i) 
+  hashtabl = hash_init(500);   
+  for(i= 0; i < cols; ++i) 
   {
     itoa(i, a);
     hash_set(hashtabl, a, a);
   }
+
+
+  for(i = 0; i <100 ; ++i) 
+  {
+    itoa(i, a);
+    hash_remove(hashtabl, a);
+  }
   
-  for(i = 0; i < 500; ++i) 
+  for(i = 1000; i < 1100; ++i) 
   {
     itoa(i, a);
     hash_remove(hashtabl, a);
   }
-
-  for(i = cols/2; i < cols/2 + 500; ++i) 
+  
+  for(i = 4990; i < 5000; ++i) 
   {
     itoa(i, a);
     hash_remove(hashtabl, a);
   }
-
-  for(i = cols - 500; i < cols; ++i) 
-  {
-    itoa(i, a);
-    hash_remove(hashtabl, a);
-  }
-
-  for(i=0; i < cols; ++i) 
+  
+  
+  for(i = 1000; i < 5000; ++i) 
   {
     fl = 0;
     itoa(i, a);
+
     value = hash_get(hashtabl, a);
     
-    if (i < 500)
+    if (i < 100)
       fl = 1;
-    if (i >= cols - 500)
+    if (i >= 4990)
       fl = 1;
-    if (( i >= cols/2 ) &&  ( i < (cols/2 + 500) ) )
+    if (( i >= 1000 ) &&  ( i < 1100 ) )
       fl = 1;
 
-    if ((value && fl) || ( !(a == value) && !fl))
+    if ((value && fl) || ( !(a == value) && !fl)) 
     {  
       printf("\nSTRESS TEST set, get AND remove ACTIONS failed.\nMust return ->%s<-\n", a);
       printf("But return ->%s<-\n",value?(char *)value:"-");
@@ -241,5 +242,8 @@ int main()
 
   printf("\n ------ END TASTING hash ------\n");
   printf("\n completed -> %d \n success -> %d \n faild -> %d \n", i, success, faild);
+
+
+
 
 }

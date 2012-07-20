@@ -26,7 +26,7 @@ int   test_actions_init_destroy()
 
   if (hashtabl)
   {
-    printf("\nTEST FOR init AND destroy ACTIONS successfilly completed\n");
+    printf("\nTEST FOR init AND destroy ACTIONS successfully completed\n");
     return 0;
   }
   else
@@ -52,7 +52,7 @@ int   test_actions_init_set_get()
  
   if ((value == "value2") && (value_1 == "value1"))
   {
-    printf("\nTEST FOR set AND get ACTIONS successfilly completed\n");
+    printf("\nTEST FOR set AND get ACTIONS successfully completed\n");
     return 0;
   }
   else
@@ -73,7 +73,7 @@ int   test_action_remove()
   value = hash_get(hashtabl, "test"); 
   if (!value)
   {
-    printf("\nTEST FOR remove ACTION successfilly completed\n");
+    printf("\nTEST FOR remove ACTION successfully completed\n");
     return 0;
   }
   else
@@ -100,7 +100,7 @@ int   test_action_clean()
  
   if ((!value) && (!value_1))
   {
-    printf("\nTEST FOR clean ACTION successfilly completed\n");
+    printf("\nTEST FOR clean ACTION successfully completed\n");
     return 0;
   }
   else
@@ -136,7 +136,7 @@ int stress_set_get_test()
       return -1;    
     }
   }
-  printf("\nSTRESS TEST set AND get ACTIONS successfilly completed\n");
+  printf("\nSTRESS TEST set AND get ACTIONS successfully completed\n");
   
   return 0;
 }
@@ -199,7 +199,7 @@ int stress_set_get_remove_test()
       return -1;    
     }
   }
-  printf("\nSTRESS TEST set, get AND remove ACTIONS successfilly completed\n");
+  printf("\nSTRESS TEST set, get AND remove ACTIONS successfully completed\n");
   
   return 0;
 }
@@ -230,7 +230,7 @@ int main()
   tests_arr[3] = &test_actions_init_destroy;
   tests_arr[4] = &stress_set_get_test;
   tests_arr[5] = &stress_set_get_remove_test;
-  printf("\n ------ START TASTING hash ------\n");
+  printf("\n ------ START TESTING hash ------\n");
   
   for(i=0; i < cols; ++i)
   {  
@@ -240,10 +240,6 @@ int main()
       faild++;
   }
 
-  printf("\n ------ END TASTING hash ------\n");
-  printf("\n completed -> %d \n success -> %d \n faild -> %d \n", i, success, faild);
-
-
-
-
+  printf("\n ------ END TESTING hash ------\n");
+  printf("\n completed -> %d \n success -> %d \n failed -> %d \n", i, success, faild);
 }

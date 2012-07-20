@@ -28,7 +28,6 @@ static int   def_hash(const char *str, int size)
 int find_hash_string(void *listdata, void *searchdata)
 {
   hashdata_t  *hash_data;
-  char        *searchvalue; 
 
   hash_data = (hashdata_t *)listdata;
   return strcmp((char *)searchdata, hash_data->key);

@@ -50,7 +50,7 @@ int   test_actions_init_set_get()
   value   = hash_get(hashtabl, "test");
   value_1  = hash_get(hashtabl, "test1");
  
-  if ((value == "value2") && (value_1 == "value1"))
+  if (((char *)value == "value2") && ((char *)value_1 == "value1"))
   {
     printf("\nTEST FOR set AND get ACTIONS successfully completed\n");
     return 0;

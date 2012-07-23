@@ -1,4 +1,4 @@
-#include "../includes/hash.h"
+#include "hash.h"
 #include "hash_support.c"
 
 

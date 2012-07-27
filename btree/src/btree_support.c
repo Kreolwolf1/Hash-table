@@ -1,3 +1,5 @@
+#include "btree.h"
+
 int       def_btree_search_func(void *searchdata, void *listdata)
 {
   return strcmp((char *)listdata, (char *)searchdata);

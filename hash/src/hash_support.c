@@ -1,4 +1,6 @@
-static hashdata_t   *mystrdup(void *value, const char *s)
+#include "hash.h"
+
+hashdata_t   *mystrdup(void *value, const char *s)
 {
   char *b;
   hashdata_t *data;
@@ -14,7 +16,7 @@ static hashdata_t   *mystrdup(void *value, const char *s)
   return data;
 }
 
-static int   def_hash(const char *str, int size)                                                                                                                                                                                                                 
+int   def_hash(const char *str, int size)                                                                                                                                                                                                                 
 {                                                                                                                                                                                                                                                                      
   unsigned int    i;                                                                                                                                                                                                                                                    
   unsigned int    hash = 0;                                                                                                                                                                                                                                             
@@ -25,7 +27,7 @@ static int   def_hash(const char *str, int size)
   return hash % size;                                                                                                                                                                                                                                                 
 }
 
-int find_hash_string(void *listdata, void *searchdata)
+int  find_hash_string(void *listdata, void *searchdata)
 {
   hashdata_t  *hash_data;
 
@@ -33,10 +35,9 @@ int find_hash_string(void *listdata, void *searchdata)
   return strcmp((char *)searchdata, hash_data->key);
 }
 
-int foreach_for_clean(void *data)
+int  foreach_for_clean(void *data)
 {
   free( ((hashdata_t *)data)->key );
   free( (hashdata_t *)data );
   return 0;
 }
-

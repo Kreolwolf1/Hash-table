@@ -4,13 +4,13 @@ TEST_NAME    =   hash_test
 
 LIB_NAME     =   libhashdyn.so
 
-SOURCE       =   ./llist/src/llist.c ./hash/src/hash.c
+SOURCE       =   ./llist/src/llist.c ./llist/src/llist_support.c ./hash/src/hash.c ./hash/src/hash_support.c 
 
-CFLAGS       =   -Wall -pedantic -g -pipe
+CFLAGS       =   -Wall -pedantic -g -pipe 
 
-OBJ          =   hash.o llist.o
+OBJ          =   llist.o llist_support.o hash.o hash_support.o
 
-INCLUDES     =   -I./hash/includes/ -I./llist/includes
+INCLUDES     =   -I./hash/includes/ -I./llist/includes/
 
 $(TEST_NAME): $(LIB_NAME) hash_tests.o
 	$(GCC) -o $(TEST_NAME) $(INCLUDES) hash_tests.o -L. -lhashdyn 

@@ -1,21 +1,33 @@
-GCC						=		gcc
+GCC          			=   gcc
 
-TEST_NAME			=		llist_test
+TEST_NAME    			=   llist_test
 
-LIB_NAME			=		llist.a
+STATIC_LIB_NAME		=		libllist.a
 
-CFLAGS       	=		-Wall -pedantic -g -pipe
+DYN_LIB_NAME     	=   libllistdyn.so
 
-OBJ          	= 	llist.o main.o
+SOURCE       			=   ./src/llist.c ./src/llist_support.c 
 
-$(TEST_NAME): libllist.a
-	gcc -L. -lllist -o $(TEST_NAME)
+CFLAGS       			=   -Wall -pedantic -g -pipe
 
-libllist.a: $(OBJ)
-	ar cr libllist.a $(OBJ)
+OBJ          			=   llist_support.o llist.o
 
-llist.o: ./src/llist.c 
-	gcc $(CFLAGS) -c ./src/llist.c -o llist.o
+INCLUDES     			=   -I./includes/
 
-main.o: ./test/main.c 
-	gcc $(CFLAGS) -c ./test/main.c -o main.o
+$(TEST_NAME): $(DYN_LIB_NAME) $(STATIC_LIB_NAME) llist_tests.o
+	$(GCC) -o $(TEST_NAME) $(INCLUDES) llist_tests.o -L. -lllistdyn 
+
+llist_tests.o: ./test/main.c
+	$(GCC) -c $(CFLAGS) $(INCLUDES) -o llist_tests.o ./test/main.c
+
+$(DYN_LIB_NAME): $(OBJ)
+	$(GCC) -shared -fpic -o $(DYN_LIB_NAME) $(OBJ)
+
+$(STATIC_LIB_NAME): $(OBJ)
+	ar cr $(STATIC_LIB_NAME) $(OBJ)
+
+$(OBJ): $(SOURCE) 
+	$(GCC) -c $(CFLAGS) $(INCLUDES) -fpic $(SOURCE)
+
+clean: 
+	rm *.o $(TEST_NAME) *.so *.a

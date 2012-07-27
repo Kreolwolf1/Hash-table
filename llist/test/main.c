@@ -1,5 +1,4 @@
-#include "../includes/llist.h"
-#include "../src/llist_support.c"
+#include "llist.h"
 #include <stdio.h>
   
 int main()

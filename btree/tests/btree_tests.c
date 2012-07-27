@@ -1,8 +1,8 @@
-#include "../src/btree.c"
+#include "btree.h"
 
-void itoa(int n, char s[])
+void  itoa(int n, char s[])
 {
-  int i, sign;
+  int  i, sign;
  
   if ((sign = n) < 0)
     n = -n;
@@ -25,7 +25,7 @@ int   test_actions_init_destroy()
   list_destroy(list);
   if (list)
   {
-    printf("\nTEST FOR init AND destroy ACTIONS successfilly completed\n");
+    printf("\nTEST FOR init AND destroy ACTIONS successfully completed\n");
     return 0;
   }
   else
@@ -50,7 +50,7 @@ int   test_actions_init_set_get()
  
   if ((value->data == "test2") && (value_1->data == "test3"))
   {
-    printf("\nTEST FOR set AND get ACTIONS successfilly completed\n");
+    printf("\nTEST FOR set AND get ACTIONS successfully completed\n");
     return 0;
   }
   else
@@ -81,7 +81,7 @@ int   test_action_remove()
   
   if ((!value) && (!value_1))
   {
-    printf("\nTEST FOR remove ACTION successfilly completed\n");
+    printf("\nTEST FOR remove ACTION successfully completed\n");
     return 0;
   }
   else
@@ -92,7 +92,7 @@ int   test_action_remove()
   }
 }
 
-int test_init(int number,int(*func)())
+int   test_init(int number,int(*func)())
 {
   int     resp;
   clock_t t = clock(); 
@@ -103,19 +103,19 @@ int test_init(int number,int(*func)())
   return resp;
 }
 
-int main()
+int   main()
 {
-  int  cols = 3;
-  void *tests_arr[cols];
-  int  faild = 0;
-  int  success = 0;
-  int  i;
+  int   cols = 3;
+  void  *tests_arr[cols];
+  int   faild = 0;
+  int   success = 0;
+  int   i;
   
   tests_arr[0] = &test_actions_init_set_get;
   tests_arr[1] = &test_actions_init_destroy;
   tests_arr[2] = &test_action_remove; 
 
-  printf("\n ------ START TASTING hash ------\n");
+  printf("\n ------ START TESTING hash ------\n");
   
   for(i=0; i < cols; ++i)
   {  
@@ -125,7 +125,7 @@ int main()
       faild++;
   }
 
-  printf("\n ------ END TASTING hash ------\n");
-  printf("\n completed -> %d \n success -> %d \n faild -> %d \n", i, success, faild);
+  printf("\n ------ END TESTING hash ------\n");
+  printf("\n completed -> %d \n success -> %d \n failed -> %d \n", i, success, faild);
 
 }

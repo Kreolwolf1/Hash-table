@@ -1,4 +1,4 @@
-#include "../src/hash.c"
+#include "hash.h"
 
 void itoa(int n, char s[])
 {
@@ -242,4 +242,6 @@ int main()
 
   printf("\n ------ END TESTING hash ------\n");
   printf("\n completed -> %d \n success -> %d \n failed -> %d \n", i, success, faild);
+
+  return 0;
 }

@@ -16,5 +16,7 @@
   int 		list_remove(node_t *list, node_t *node, ...);
   int 		list_foreach(node_t *node, int(*func)(void*));
   int     list_destroy(node_t *list);
+  int     findstring(void *listdata, void *searchdata);
+  int     printstring(void *s);
 
 #endif

@@ -1,6 +1,4 @@
 #include "hash.h"
-#include "hash_support.c"
-
 
 hash_t  *hash_init(int size)
 {

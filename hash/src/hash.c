@@ -27,7 +27,8 @@ int   hash_set(hash_t *hash, char *key, void *value)
   node = hash->nodes[hash_key];
   if (node)
   {
-    if (buff_node = list_find(node, find_hash_string, key))
+    buff_node = list_find(node, find_hash_string, key);
+    if (buff_node)
     {
       ((hashdata_t *)buff_node->data)->value = value;
       return 0;

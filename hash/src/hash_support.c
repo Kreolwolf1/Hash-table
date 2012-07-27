@@ -3,7 +3,7 @@ static hashdata_t   *mystrdup(void *value, const char *s)
   char *b;
   hashdata_t *data;
 
-  if (!(data = malloc(sizeof(struct hashdata_s*)))) 
+  if (!(data = malloc(sizeof(hashdata_t)))) 
     return NULL;
   if (!(b = malloc(strlen(s) + 1))) 
     return NULL;

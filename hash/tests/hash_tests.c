@@ -1,3 +1,4 @@
+#define  COLSTESTS 6
 #include "../src/hash.c"
 
 void itoa(int n, char s[])
@@ -41,7 +42,11 @@ int   test_actions_init_set_get()
   hash_t  *hashtabl;
   void  *value;
   void  *value_1;
+  char  *def_value;
+  char  *def_value1;
 
+  def_value = "value2";
+  def_value1 = "value1";
   hashtabl = hash_init(128);
   hash_set(hashtabl, "test", "value");
   hash_set(hashtabl, "test1", "value1");
@@ -49,8 +54,10 @@ int   test_actions_init_set_get()
 
   value   = hash_get(hashtabl, "test");
   value_1  = hash_get(hashtabl, "test1");
- 
-  if ((value == "value2") && (value_1 == "value1"))
+  
+  hash_destroy(hashtabl);
+
+  if (((char *)value == def_value) && ((char *)value_1 == def_value1))
   {
     printf("\nTEST FOR set AND get ACTIONS successfully completed\n");
     return 0;
@@ -71,6 +78,7 @@ int   test_action_remove()
   hash_set(hashtabl, "test", "value");
   hash_remove(hashtabl, "test");
   value = hash_get(hashtabl, "test"); 
+  hash_destroy(hashtabl);
   if (!value)
   {
     printf("\nTEST FOR remove ACTION successfully completed\n");
@@ -98,6 +106,8 @@ int   test_action_clean()
   value   = hash_get(hashtabl, "test");
   value_1  = hash_get(hashtabl, "test1");
  
+  hash_destroy(hashtabl);
+
   if ((!value) && (!value_1))
   {
     printf("\nTEST FOR clean ACTION successfully completed\n");
@@ -133,11 +143,12 @@ int stress_set_get_test()
     {  
       printf("\nSTRESS TEST set AND get ACTIONS failed.\nMust return ->%s<-\n", a);
       printf("But return ->%s<-\n",value?(char *)value:"-");
+      hash_destroy(hashtabl);
       return -1;    
     }
   }
   printf("\nSTRESS TEST set AND get ACTIONS successfully completed\n");
-  
+  hash_destroy(hashtabl);
   return 0;
 }
 
@@ -196,50 +207,43 @@ int stress_set_get_remove_test()
     {  
       printf("\nSTRESS TEST set, get AND remove ACTIONS failed.\nMust return ->%s<-\n", a);
       printf("But return ->%s<-\n",value?(char *)value:"-");
+      hash_destroy(hashtabl);
       return -1;    
     }
   }
   printf("\nSTRESS TEST set, get AND remove ACTIONS successfully completed\n");
   
+  hash_destroy(hashtabl);
   return 0;
 }
 
 
-int test_init(int number,int(*func)())
-{
-  int     resp;
-  clock_t t = clock(); 
-
-  resp = func();
-  t = clock()-t; 
-
-  return resp;
-}
-
 int main()
 {
-  int  cols = 6;
-  void *tests_arr[cols];
-  int  faild = 0;
-  int  success = 0;
-  int  i;
+  typedef int (*p_func)();
+  p_func  tests_arr[COLSTESTS];
+  int     faild = 0;
+  int     success = 0;
+  int     i;
   
-  tests_arr[0] = &test_actions_init_set_get;
-  tests_arr[1] = &test_action_remove; 
-  tests_arr[2] = &test_action_clean;
-  tests_arr[3] = &test_actions_init_destroy;
-  tests_arr[4] = &stress_set_get_test;
-  tests_arr[5] = &stress_set_get_remove_test;
+  tests_arr[0] = (p_func)&test_actions_init_set_get;
+  tests_arr[1] = (p_func)&test_action_remove; 
+  tests_arr[2] = (p_func)&test_action_clean;
+  tests_arr[3] = (p_func)&test_actions_init_destroy;
+  tests_arr[4] = (p_func)&stress_set_get_test;
+  tests_arr[5] = (p_func)&stress_set_get_remove_test;
   printf("\n ------ START TESTING hash ------\n");
   
-  for(i=0; i < cols; ++i)
+  for(i=0; i < COLSTESTS; ++i)
   {  
-    if (!test_init(i, tests_arr[i]))
-      success++;
-    else
+    if (tests_arr[i]())
       faild++;
+    else
+      success++;
   }
-
+  
   printf("\n ------ END TESTING hash ------\n");
   printf("\n completed -> %d \n success -> %d \n failed -> %d \n", i, success, faild);
+
+  return 0;
 }

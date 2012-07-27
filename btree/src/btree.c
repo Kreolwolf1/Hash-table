@@ -1,5 +1,4 @@
-#include "../includes/btree.h"
-#include "../src/btree_support.c"
+#include "btree.h"
 
 node_t      *list_create(void *data)
 {

@@ -1,9 +1,10 @@
 #ifndef HASH
 # define HASH
-# include "./../../llist/includes/llist.h"
-/* # include "./../../btree/src/btree.c" */
+# include "llist.h"
+/* # include "btree.c" */
 
-typedef struct hash_s {
+typedef struct    hash_s 
+{
 	int      size;
 	node_t   **nodes;
 } hash_t;
@@ -14,8 +15,8 @@ typedef struct    hashdata_s
   void    *value;
 } hashdata_t;
 
-static  hashdata_t  *mystrdup(void *value, const char *s);
-static  int  def_return_hash(const char *str, int size);
+hashdata_t  *mystrdup(void *value, const char *s);
+int  def_hash(const char *str, int size);
 hash_t  *hash_init(int size);
 void  *hash_get(hash_t *hash, char *key);
 int		hash_set(hash_t *hash, char *key, void *data);
@@ -24,5 +25,6 @@ int		hash_destroy(hash_t *hash);
 int		hash_clean(hash_t *hash);
 int   find_hash_string(void *listdata, void *searchdata);
 int   hash_clean(hash_t *hash); 
+int   foreach_for_clean(void *data);
 
 #endif

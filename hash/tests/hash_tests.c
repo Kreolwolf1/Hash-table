@@ -1,5 +1,5 @@
 #define  COLSTESTS 6
-#include "../src/hash.c"
+#include "hash.h"
 
 void itoa(int n, char s[])
 {

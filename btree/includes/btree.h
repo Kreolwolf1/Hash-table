@@ -1,5 +1,5 @@
-#ifndef LLIST_H
-# define LLIST_H
+#ifndef BTREE_H
+# define BTREE_H
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -16,10 +16,11 @@
   node_t  *list_find(node_t *node, int (*func)(void *,void *), void *data);
   node_t  *list_search(node_t *node, void *data, int(*func)(void*,void*));
   int     list_remove(node_t *list, node_t *node, int(*func)(void*,void*), void *key);
-  int     list_foreach(node_t *root, int(*func)(void*));//char  *text);
+  int     list_foreach(node_t *root, int(*func)(void*));
   int     list_destroy(node_t *root);
   int     remove_root(node_t *list);
+  int     remove_not_root(node_t *node, node_t **buff);
   int     list_foreach_test(node_t *root, node_t *parent, char  *text); 
-
+  int     def_btree_search_func(void *searchdata, void *listdata);
 
 #endif

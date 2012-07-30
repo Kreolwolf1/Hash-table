@@ -65,7 +65,6 @@ int     btree_remove(node_bt *list, node_bt *node, int(*func)(void*,void*), void
 {
   node_bt *parent;
   node_bt **buff;
-  node_bt *last_left;
   
   if (list == node)
   {
@@ -92,11 +91,13 @@ int     btree_remove(node_bt *list, node_bt *node, int(*func)(void*,void*), void
 int     btree_destroy(node_bt *root)
 {
   if (root==NULL) 
-    return;             
+    return 0;             
 
   btree_destroy(root->left);       
   btree_destroy(root->right);      
   free(root);
+
+  return -1;
 }
 
 int     btree_foreach(node_bt *root, int(*func)(void*)) 
@@ -107,6 +108,8 @@ int     btree_foreach(node_bt *root, int(*func)(void*))
     return -1;
   btree_foreach(root->left, func);        
   btree_foreach(root->right, func);      
+
+  return -1;
 }
 
 int     btree_foreach_test(node_bt *root, node_bt *parent, char  *text) 
@@ -118,4 +121,6 @@ int     btree_foreach_test(node_bt *root, node_bt *parent, char  *text)
   parent = root;
   btree_foreach_test(root->left, parent, "L");       
   btree_foreach_test(root->right, parent, "R");      
+
+  return -1;
 }

@@ -1,4 +1,4 @@
-#define  COLSTESTS 6
+#define  COLSTESTS 5
 #include "hash.h"
 
 void itoa(int n, char s[])
@@ -182,13 +182,13 @@ int stress_set_get_remove_test()
     itoa(i, a);
     hash_remove(hashtabl, a);
   }
-  
+ 
   for(i = 4990; i < 5000; ++i) 
   {
     itoa(i, a);
     hash_remove(hashtabl, a);
   }
-  
+ 
   
   for(i = 1000; i < 5000; ++i) 
   {
@@ -223,15 +223,15 @@ int    main()
 {
   typedef int (*p_func)();
   p_func  tests_arr[COLSTESTS];
-  int     faild = 0;
-  int     success = 0;
   int     i;
-  
+  int     success = 0;
+  int     faild = 0;
+   
   tests_arr[0] = (p_func)&test_actions_init_set_get;
-  tests_arr[1] = (p_func)&test_action_remove; 
+  tests_arr[4] = (p_func)&test_action_remove; 
   tests_arr[2] = (p_func)&test_action_clean;
   tests_arr[3] = (p_func)&test_actions_init_destroy;
-  tests_arr[4] = (p_func)&stress_set_get_test;
+  tests_arr[1] = (p_func)&stress_set_get_test;
   tests_arr[5] = (p_func)&stress_set_get_remove_test;
   printf("\n ------ START TESTING hash ------\n");
   
@@ -244,7 +244,7 @@ int    main()
   }
   
   printf("\n ------ END TESTING hash ------\n");
-  printf("\n completed -> %d \n success -> %d \n failed -> %d \n", i, success, faild);
+  printf("\n completed -> %i \n success -> %i \n failed -> %i \n", i, success, faild);
 
   return 0;
 }

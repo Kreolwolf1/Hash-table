@@ -49,8 +49,12 @@ int list_remove(node_lt *list, node_lt *node, ...)
     free(node);
     return 0;   
   } 
-  else
-    return -1;
+  if (list == node)
+  {
+    free(node);
+  } 
+  
+  return -1;
 }
 
 

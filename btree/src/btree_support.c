@@ -95,4 +95,6 @@ int     remove_not_root(node_bt *node, node_bt **buff)
       last_left->left = node->left;
       free(node);
   }
+
+  return 0;
 }

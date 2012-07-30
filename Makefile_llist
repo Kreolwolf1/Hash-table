@@ -1,0 +1,42 @@
+GCC               =   gcc
+
+TEST_NAME  				=   hash_llist_test
+
+LIB_NAME    			=   libhashdyn.so
+
+STATIC_LIB_NAME		=		libhash.a
+
+SOURCE            =   ./hash/src/hash.c ./hash/src/hash_support.c 
+
+CFLAGS            =   -Wall -pedantic -g -pipe 
+
+OBJ               =   hash.o hash_support.o
+
+LLIST_OBJ         =   ./llist/llist.o ./llist/llist_support.o
+
+INCLUDES          =   -I./hash/includes/ -I./llist/includes/
+
+$(TEST_NAME): $(LIB_NAME) $(STATIC_LIB_NAME) hash_tests.o
+	$(GCC) -o $(TEST_NAME) $(INCLUDES) hash_tests.o -L. -lhashdyn 
+
+hash_tests.o: ./hash/tests/hash_tests.c
+	$(GCC) -c $(CFLAGS) $(INCLUDES) -o hash_tests.o ./hash/tests/hash_tests.c
+
+$(LIB_NAME): $(OBJ) $(LLIST_OBJ) 
+	$(GCC) -shared -fpic -o $(LIB_NAME) $(OBJ) $(LLIST_OBJ)
+
+$(STATIC_LIB_NAME): $(OBJ)
+	ar cr $(STATIC_LIB_NAME) $(OBJ)
+
+$(OBJ): $(SOURCE) 
+	$(GCC) -c $(CFLAGS) $(INCLUDES) -DLIST_TYPE=1 -fpic $(SOURCE)
+
+$(LLIST_OBJ):  
+	make -C ./llist llist.o llist_support.o
+
+clean: 
+	rm *.o $(TEST_NAME) *.so
+
+clean: 
+	rm *.o $(TEST_NAME) *.so
+	make -C ./llist clean

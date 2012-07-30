@@ -1,7 +1,13 @@
 #ifndef HASH
 # define HASH
-# include "llist.h"
-/* # include "btree.c" */
+# ifndef LIST_TYPE
+#  define LIST_TYPE 1
+# endif
+# if (LIST_TYPE == 1)
+#  include "llist.h"
+# elif (LIST_TYPE == 2)
+#  include "btree.h"
+# endif
 
 typedef struct    hash_s 
 {

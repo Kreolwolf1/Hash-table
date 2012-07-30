@@ -3,8 +3,8 @@
   
 int main()
 {
-  node_t *list, *second, *list_test, *inserted;
-  node_t *match;
+  node_lt *list, *second, *list_test, *inserted;
+  node_lt *match;
 
   list_test = list_create((void*)"Test");
   printf("Before list_remove():\n");

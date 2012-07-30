@@ -1,5 +1,32 @@
 #include "hash.h"
 
+int init_hash_function()
+{
+  if (LIST_TYPE == 1)
+  {
+    create_lb = &list_create;
+    insert_lb = &list_insert;
+    find_lb = &list_find;
+    remove_lb = &list_remove;
+    destroy_lb = &list_destroy;
+    foreach_lb = &list_foreach;
+    return 0;
+  }
+  else if (LIST_TYPE == 2)
+  {
+    create_lb = &btree_create;
+    insert_lb = &btree_insert;
+    find_lb = &btree_find;
+    remove_lb = &btree_remove;
+    destroy_lb = &btree_destroy;
+    foreach_lb = &btree_foreach;
+    return 0;
+  }
+  return -1;
+}
+
+
+
 hashdata_t   *mystrdup(void *value, const char *s)
 {
   char *b;

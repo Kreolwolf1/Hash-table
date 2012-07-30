@@ -5,9 +5,9 @@ int       def_btree_search_func(void *searchdata, void *listdata)
   return strcmp((char *)listdata, (char *)searchdata);
 }
 
-node_t    *list_search(node_t *node, void *data, int(*func)(void*,void*))
+node_bt    *btree_search(node_bt *node, void *data, int(*func)(void*,void*))
 {
-  node_t  *previos = node;
+  node_bt  *previos = node;
   int     compare_result;
   
   while(node) {
@@ -29,9 +29,9 @@ node_t    *list_search(node_t *node, void *data, int(*func)(void*,void*))
   return previos;
 }
 
-node_t    *list_left_search(node_t *node)
+node_bt    *btree_left_search(node_bt *node)
 {
-  node_t *parent;
+  node_bt *parent;
 
   while(node)
   {
@@ -42,9 +42,9 @@ node_t    *list_left_search(node_t *node)
   return parent;
 }
 
-int     remove_root(node_t *list)
+int     remove_root(node_bt *list)
 {
-  node_t *last_left;
+  node_bt *last_left;
 
   if ((list->left == NULL) && (list->left == NULL))
   {
@@ -61,7 +61,7 @@ int     remove_root(node_t *list)
   }
   else
   {
-    last_left = list_left_search(list->right);
+    last_left = btree_left_search(list->right);
     last_left->left = list->left;
     *list = *list->right;
   }
@@ -69,9 +69,9 @@ int     remove_root(node_t *list)
   return 0;
 }
 
-int     remove_not_root(node_t *node, node_t **buff)
+int     remove_not_root(node_bt *node, node_bt **buff)
 {
-  node_t *last_left;
+  node_bt *last_left;
 
   if ((node->left == NULL) && (node->right == NULL))
   {
@@ -91,7 +91,7 @@ int     remove_not_root(node_t *node, node_t **buff)
   else
   {
       *buff = node->right;
-      last_left = list_left_search(node->right);
+      last_left = btree_left_search(node->right);
       last_left->left = node->left;
       free(node);
   }

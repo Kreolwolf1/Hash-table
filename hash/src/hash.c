@@ -4,6 +4,7 @@ hash_t  *hash_init(int size)
 {
   hash_t *hash;
 
+  init_hash_function();
   if(!(hash = malloc(sizeof(hash_t)))) 
     return NULL;
   if(!(hash->nodes = calloc(size, sizeof(node_t*)))) {
@@ -25,17 +26,17 @@ int   hash_set(hash_t *hash, char *key, void *value)
   node = hash->nodes[hash_key];
   if (node)
   {
-    buff_node = list_find(node, find_hash_string, key);
+    buff_node = find_lb(node, find_hash_string, key);
     if (buff_node)
     {
       ((hashdata_t *)buff_node->data)->value = value;
       return 0;
     }
-    buff_node = list_insert(node, mystrdup(value, key), find_hash_string, key);
+    buff_node = insert_lb(node, mystrdup(value, key), find_hash_string, key);
   } 
   else
   {
-    buff_node = list_create(mystrdup(value, key));  
+    buff_node = create_lb(mystrdup(value, key));  
   } 
   hash->nodes[hash_key] = buff_node;
 
@@ -49,7 +50,7 @@ void  *hash_get(hash_t *hash, char *key)
 
   hash_key = def_hash((char *)key, hash->size);
   node = hash->nodes[hash_key];
-  node = list_find(node, find_hash_string, key);  
+  node = find_lb(node, find_hash_string, key);  
   if (node)
   {
     return ((hashdata_t *)node->data)->value;
@@ -68,12 +69,12 @@ int   hash_remove(hash_t *hash, char *key)
 
   hash_key = def_hash((char*)key, hash->size);
   node = hash->nodes[hash_key]; 
-  buff_node = list_find(node, find_hash_string, key);
+  buff_node = find_lb(node, find_hash_string, key);
   if (buff_node)
   {
     free(((hashdata_t *)buff_node->data)->key);
     free((hashdata_t *)buff_node->data);
-    if  (list_remove(node, buff_node, find_hash_string, key) < 0)
+    if  (remove_lb(node, buff_node, find_hash_string, key) < 0)
     {   
        hash->nodes[hash_key] = NULL;
     }
@@ -94,8 +95,8 @@ int   hash_clean(hash_t *hash)
   {
     if (hash->nodes[i])
     {
-      list_foreach(hash->nodes[i], foreach_for_clean);
-      list_destroy(hash->nodes[i]);
+      foreach_lb(hash->nodes[i], foreach_for_clean);
+      destroy_lb(hash->nodes[i]);
       hash->nodes[i] = NULL;  
     } 
   }

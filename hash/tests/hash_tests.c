@@ -40,10 +40,10 @@ int   test_actions_init_destroy()
 int   test_actions_init_set_get()
 {
   hash_t  *hashtabl;
-  void  *value;
-  void  *value_1;
-  char  *def_value;
-  char  *def_value1;
+  void    *value;
+  void    *value_1;
+  char    *def_value;
+  char    *def_value1;
 
   def_value = "value2";
   def_value1 = "value1";
@@ -73,7 +73,8 @@ int   test_actions_init_set_get()
 int   test_action_remove()
 {
   hash_t  *hashtabl;
-  void  *value;
+  void    *value;
+
   hashtabl = hash_init(128);
   hash_set(hashtabl, "test", "value");
   hash_remove(hashtabl, "test");
@@ -95,8 +96,8 @@ int   test_action_remove()
 int   test_action_clean()
 {
   hash_t  *hashtabl;
-  void  *value;
-  void  *value_1;
+  void    *value;
+  void    *value_1;
 
   hashtabl = hash_init(128);
   hash_set(hashtabl, "test", "value");
@@ -218,7 +219,7 @@ int stress_set_get_remove_test()
 }
 
 
-int main()
+int    main()
 {
   typedef int (*p_func)();
   p_func  tests_arr[COLSTESTS];

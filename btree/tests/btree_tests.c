@@ -19,10 +19,10 @@ void  itoa(int n, char s[])
 
 int   test_actions_init_destroy()
 {
-  node_t  *list;
+  node_bt  *list;
 
-  list = list_create("test");
-  list_destroy(list);
+  list = btree_create("test");
+  btree_destroy(list);
   if (list)
   {
     printf("\nTEST FOR init AND destroy ACTIONS successfully completed\n");
@@ -37,16 +37,16 @@ int   test_actions_init_destroy()
 
 int   test_actions_init_set_get()
 {
-  node_t  *list;
-  node_t  *value;
-  node_t  *value_1;
+  node_bt  *list;
+  node_bt  *value;
+  node_bt  *value_1;
 
-  list = list_create("test");
-  list_insert(list, "test2", def_btree_search_func,"test2");
-  list_insert(list, "test3", def_btree_search_func,"test3");
+  list = btree_create("test");
+  btree_insert(list, "test2", def_btree_search_func,"test2");
+  btree_insert(list, "test3", def_btree_search_func,"test3");
 
-  value   = list_find(list, def_btree_search_func,"test2");
-  value_1  = list_find(list, def_btree_search_func,"test3");
+  value   = btree_find(list, def_btree_search_func,"test2");
+  value_1  = btree_find(list, def_btree_search_func,"test3");
  
   if ((value->data == "test2") && (value_1->data == "test3"))
   {
@@ -63,21 +63,21 @@ int   test_actions_init_set_get()
 
 int   test_action_remove()
 {
-  node_t  *list;
-  node_t  *value;
-  node_t  *value_1;
+  node_bt  *list;
+  node_bt  *value;
+  node_bt  *value_1;
 
-  list = list_create("test");
-  list_insert(list, "test2", def_btree_search_func,"test2");
+  list = btree_create("test");
+  btree_insert(list, "test2", def_btree_search_func,"test2");
   
-  value = list_find(list, def_btree_search_func,"test");
-  value_1 =  list_find(list, def_btree_search_func,"test2");
+  value = btree_find(list, def_btree_search_func,"test");
+  value_1 =  btree_find(list, def_btree_search_func,"test2");
 
-  list_remove(list, value_1, def_btree_search_func,"test2");
-  list_remove(list, value, def_btree_search_func,"test");
+  btree_remove(list, value_1, def_btree_search_func,"test2");
+  btree_remove(list, value, def_btree_search_func,"test");
 
-  value = list_find(list, def_btree_search_func,"test");
-  value_1 =  list_find(list, def_btree_search_func,"test2");
+  value = btree_find(list, def_btree_search_func,"test");
+  value_1 =  btree_find(list, def_btree_search_func,"test2");
   
   if ((!value) && (!value_1))
   {

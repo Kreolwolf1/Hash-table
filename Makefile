@@ -14,7 +14,7 @@ OBJ               =   hash.o hash_support.o
 
 LLIST_OBJ         =   ./llist/llist.o ./llist/llist_support.o
 
-INCLUDES          =   -I./hash/includes/ -I./llist/includes/
+INCLUDES          =   -I./hash/includes/ -I./llist/includes/ -I./btree/includes/
 
 $(TEST_NAME): $(LIB_NAME) $(STATIC_LIB_NAME) hash_tests.o
 	$(GCC) -o $(TEST_NAME) $(INCLUDES) hash_tests.o -L. -lhashdyn 
@@ -33,9 +33,6 @@ $(OBJ): $(SOURCE)
 
 $(LLIST_OBJ):  
 	make -C ./llist llist.o llist_support.o
-
-clean: 
-	rm *.o $(TEST_NAME) *.so
 
 clean: 
 	rm *.o $(TEST_NAME) *.so
